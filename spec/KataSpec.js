@@ -8,33 +8,42 @@ describe('Kata', function() {
     expect(true).toBeTruthy();
   });
 
-  it('should test first version', function() {
+  it('should test codewars use cases', function() {
     t10 = performance.now();
-    expect(scramble1('rkqodlw','world')).toBeTruthy('world');
-    expect(scramble1('cedewaraaossoqqyt','codewars')).toBeTruthy('codewars');
-    expect(scramble1('katas','steak')).toBeFalsy('steak');
-    expect(scramble1('scriptjava','javascript')).toBeTruthy('javascript');
-    expect(scramble1('scriptingjava','javascript')).toBeTruthy('javascript');
-    expect(scramble1('scriptsjava','javascripts')).toBeTruthy('javascripts');
-    expect(scramble1('jscripts','javascript')).toBeFalsy('javascript');
-    expect(scramble1('aabbcamaomsccdd','commas')).toBeTruthy('commas');
+    expect(scramble('rkqodlw','world')).toBeTruthy('world');
+    expect(scramble('cedewaraaossoqqyt','codewars')).toBeTruthy('codewars');
+    expect(scramble('katas','steak')).toBeFalsy('steak');
+    expect(scramble('scriptjava','javascript')).toBeTruthy('javascript');
+    expect(scramble('scriptingjava','javascript')).toBeTruthy('javascript');
+    expect(scramble('scriptsjava','javascripts')).toBeTruthy('javascripts');
+    expect(scramble('jscripts','javascript')).toBeFalsy('javascript');
+    expect(scramble('aabbcamaomsccdd','commas')).toBeTruthy('commas');
     t11 = performance.now();
     message = 'First version = ' + (t11-t10) + ' milisecs'
     console.log (message);    
   });
 
-  it('should test second version', function() {
-    t20 = performance.now();
-    expect(scramble2('rkqodlw','world')).toBeTruthy('world');
-    expect(scramble2('cedewaraaossoqqyt','codewars')).toBeTruthy('codewars');
-    expect(scramble2('katas','steak')).toBeFalsy('steak');
-    expect(scramble2('scriptjava','javascript')).toBeTruthy('javascript');
-    expect(scramble2('scriptingjava','javascript')).toBeTruthy('javascript');
-    expect(scramble2('scriptsjava','javascripts')).toBeTruthy('javascripts');
-    expect(scramble2('jscripts','javascript')).toBeFalsy('javascript');
-    expect(scramble2('aabbcamaomsccdd','commas')).toBeTruthy();
-    t21 = performance.now();
-    message = 'Second version = ' + (t21-t20) + ' milisecs'
-    console.log (message);    
+  it('should test similar words in same order', function() {
+    expect(scramble('world','world')).toBeTruthy('Similar words');
+  });
+
+  it('should test similar words in different order', function() {
+    expect(scramble('world','rdwol')).toBeTruthy('Similar words in different order');
+  });
+
+  it('should test repeated letters with enough qty', function() {
+    expect(scramble('aaaabcdefg','aaa')).toBeTruthy('aaaa in aaaabcdefg');
+  });
+
+  it('should test repeated letters with less qty', function() {
+    expect(scramble('abcdefg','aa')).toBeFalsy('aa in abcdefg');
+  });
+
+  it('should test repeated letters with same qty', function() {
+    expect(scramble('aaabbbcccddd','aaabbbccc')).toBeTruthy('aaabbbccc in aaabbbcccddd');
+  });
+
+  it('should test no ocurrences', function() {
+    expect(scramble('abcdefg','hhhh')).toBeFalsy('hhhh in abcdefg');
   });
 });

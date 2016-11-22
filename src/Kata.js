@@ -1,36 +1,23 @@
-function scramble1(str1, str2) {
-    var por,
-        textToFind = str2.toLowerCase(),
-        textToSearch = str1.toLowerCase();
+function scramble(str1, str2) {
+    var toFind = str2.split(''),
+        store = str1.split('');
     
-    i=0;
-    while (i<textToFind.length) {
-        pos = textToSearch.indexOf(textToFind[i]);
-        if (pos<0) {
-            return false;        
-        }
-        i++;
-        textToSearch = textToSearch.slice(0,pos) + textToSearch.slice(pos,textToSearch.length);
-    };
-    return true;
-};
-
-function scramble2(str1, str2) {
-    var textToFind = str2.split(''),
-        used = str2.split(''),
-        textToSearch = str1.split('');
-    
-    while (textToFind.length > 0) {
-        var elem =  textToFind[0];
-        if (textToSearch.indexOf(elem)===-1){
-            return false;
-        }        
-        textToFind = textToFind.filter(function(element){
+    while (toFind.length > 0) {
+        var elem =  toFind[0];
+        var l = toFind.length;
+        toFind = toFind.filter(function(element){
             return elem !== element;
         });
-        textToSearch = textToSearch.filter(function(element){
-            return elem !== element;
-        }); 
+        var qtyNedded = l - toFind.length;
+
+
+        var qtyInStore = store.filter(function(element){
+            return elem === element;
+        }).length;
+
+        if (qtyNedded > qtyInStore){
+            return false;
+        }        
     };  
-    return (textToFind.length === 0);
+    return (toFind.length === 0);
 };
