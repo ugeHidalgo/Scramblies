@@ -1,17 +1,18 @@
 function scramble(str1, str2) {
-    var toFind = str2.split(''),
-        store = str1.split('');
-    
-    while (toFind.length > 0) {
-        var elem =  toFind[0];
-        var l = toFind.length;
-        toFind = toFind.filter(function(element){
-            return elem !== element;
-        });
-        var qtyNedded = l - toFind.length;
+    var toFind = str2.split('').sort(),
+        store = str1.split(''),
+        f = 0, qtyNedded, qtyInStore, 
+        elem;
 
+    while (f < toFind.length) {
+        elem =  toFind[f];
+        qtyNedded = 1;
+        while (toFind[f+qtyNedded]===elem){
+            qtyNedded++;
+        } 
+        f = f + qtyNedded;
 
-        var qtyInStore = store.filter(function(element){
+        qtyInStore = store.filter(function(element){
             return elem === element;
         }).length;
 
@@ -19,5 +20,5 @@ function scramble(str1, str2) {
             return false;
         }        
     };  
-    return (toFind.length === 0);
+    return true;
 };
